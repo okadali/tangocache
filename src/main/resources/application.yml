@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: tangocache
+  data:
+    redis:
+      host: {HOST}
+      port: {PORT}
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60000
