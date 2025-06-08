@@ -1,5 +1,6 @@
 package okadali.tangocache.commands;
 
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import picocli.CommandLine;
 
@@ -12,18 +13,22 @@ public class CachingProxyCommand implements Runnable {
     @CommandLine.Option(names = "--origin", description = "Origin server URL to proxy")
     String origin;
 
+    @CommandLine.Option(names = "--port", description = "Port number the server will be using")
+    String port;
+
     @CommandLine.Option(names = "--clear-cache", description = "Clear the redis cache and exit")
     boolean clearCache;
 
-//    private final RedisTemplate<String, String> redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
-    public CachingProxyCommand() {
+    public CachingProxyCommand(StringRedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
     public void run() {
         if (clearCache) {
-//            redisTemplate.getConnectionFactory().getConnection().flushDb();
+            redisTemplate.getConnectionFactory().getConnection().flushDb();
             System.out.println("Cache Cleared");
             return;
         }
