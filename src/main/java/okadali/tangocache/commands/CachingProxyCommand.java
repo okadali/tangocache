@@ -30,7 +30,7 @@ public class CachingProxyCommand implements Runnable {
         if (clearCache) {
             redisTemplate.getConnectionFactory().getConnection().flushDb();
             System.out.println("Cache Cleared");
-            return;
+            System.exit(0);
         }
 
         if (origin != null) {
