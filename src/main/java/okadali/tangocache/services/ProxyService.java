@@ -62,8 +62,6 @@ public class ProxyService {
                 })
                 .block();
 
-        // yoksa X-cache: MISS olarak header'ı güncelle ve ilgili aderese istek at
-        // sonucu redise kaydet ve respone'u yolla
         redisTemplate.opsForValue().set(url, proxyRedisDTO, Duration.ofMillis(timeToLive));
 
         return proxyRedisDTO;
